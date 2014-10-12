@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <RazvanMocanu_Devtools>
+            <active>active</active>
+            <codePool>community</codePool>
+        </RazvanMocanu_Devtools>
+    </modules>
+</config>
