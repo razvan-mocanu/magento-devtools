@@ -12,7 +12,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
 
     private function updateContent($observer) {
 
-        $blockDetails = $this->prepareContent($observer);
+        $blockDetails = $this->prepareContentData($observer);
 
         $_showEmptyBlocks = Mage::getStoreConfig('devtools_options/block_info_settings/show_empty_blocks');
 
@@ -37,7 +37,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         return $newContent;
     }
 
-    private function prepareContent($observer) {
+    private function prepareContentData($observer) {
         $_currentBlock = $observer->getBlock();
 
         $_blockDetails = array();
@@ -119,15 +119,19 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         }
     }
 
+    private function prepareContent($blockDetails) {
+        return $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'];
+    }
+
     private function prepareSection($blockDetails) {
-        return '<section' . $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'] . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</section>';
+        return '<section' . $this->prepareContent($blockDetails) . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</section>';
     }
 
     private function prepareDiv($blockDetails) {
-        return '<div' . $blockDetails['blockHover'] . $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'] . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</div>';
+        return '<div' . $blockDetails['blockHover'] . $this->prepareContent($blockDetails) . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</div>';
     }
 
     private function prepareComment($blockDetails) {
-        return '<!--  Begin' . $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'] . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->';
+        return '<!--  Begin' . $this->prepareContent($blockDetails) . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->';
     }
 }
