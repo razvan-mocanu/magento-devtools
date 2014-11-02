@@ -22,13 +22,13 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
 
         switch($blockDetails['wrapperTag']):
             case 'section':
-                $newContent = $this->prepareSection($blockDetails);
+                $newContent = $this->prepareContent($blockDetails, 'section');
                 break;
             case 'div':
-                $newContent = $this->prepareDiv($blockDetails);
+                $newContent = $this->prepareContent($blockDetails, 'div');
                 break;
             case 'comment':
-                $newContent = $this->prepareComment($blockDetails);
+                $newContent = $this->prepareContent($blockDetails, 'comment');
                 break;
             default:
                 $newContent = '';
@@ -38,6 +38,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
     }
 
     private function prepareContentData($observer) {
+
         $_currentBlock = $observer->getBlock();
 
         $_blockDetails = array();
@@ -119,19 +120,14 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         }
     }
 
-    private function prepareContent($blockDetails) {
-        return $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'];
-    }
+    private function prepareContent($blockDetails, $contentType) {
+        $content = $blockDetails['blockName'] . $blockDetails['blockTemplate'] . $blockDetails['blockData'];
+        $contentTypes = array(
+            'section' => '<section' . $content . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</section>',
+            'div' => '<div' . $blockDetails['blockHover'] . $content . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</div>',
+            'comment' => '<!--  Begin' . $content . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->'
+        );
 
-    private function prepareSection($blockDetails) {
-        return '<section' . $this->prepareContent($blockDetails) . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</section>';
-    }
-
-    private function prepareDiv($blockDetails) {
-        return '<div' . $blockDetails['blockHover'] . $this->prepareContent($blockDetails) . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</div>';
-    }
-
-    private function prepareComment($blockDetails) {
-        return '<!--  Begin' . $this->prepareContent($blockDetails) . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->';
+        return $contentTypes[$contentType];
     }
 }
