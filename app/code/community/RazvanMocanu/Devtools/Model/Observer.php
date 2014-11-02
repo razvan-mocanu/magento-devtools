@@ -20,21 +20,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
             $blockDetails['wrapperTag'] = "empty";
         }
 
-        switch($blockDetails['wrapperTag']):
-            case 'section':
-                $newContent = $this->prepareContent($blockDetails, 'section');
-                break;
-            case 'div':
-                $newContent = $this->prepareContent($blockDetails, 'div');
-                break;
-            case 'comment':
-                $newContent = $this->prepareContent($blockDetails, 'comment');
-                break;
-            default:
-                $newContent = '';
-        endswitch;
-
-        return $newContent;
+        return $this->prepareContent($blockDetails, $blockDetails['wrapperTag']);
     }
 
     private function prepareContentData($observer) {
@@ -42,7 +28,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         $_currentBlock = $observer->getBlock();
 
         $_blockDetails = array();
-        $_blockDetails['wrapperTag'] = $this->getWrapperTag($_currentBlock);
+        $_blockDetails['wrapperTag'] = $this->getWrapperTag($_currentBlock)? $this->getWrapperTag($_currentBlock) : 'empty';
         $_blockDetails['blockName'] = $this->getBlockNameContent($_currentBlock);
         $_blockDetails['blockTemplate'] = $this->getBlockTemplateContent($_currentBlock);
         $_blockDetails['blockData'] = $this->getBlockDataContent($_currentBlock);
@@ -56,11 +42,11 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         $_wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
         // Set wrapper tag to comment if the block is root, head or contained in head.
         // In this cases no other tag can be used.
-        if (($theBlock == 'root') ||
-            ($theBlock == 'head') ||
-            (($theBlock->getParentBlock() != null) &&
-                ($theBlock->getParentBlock()->getNameInLayout() == 'head')
-            )
+
+        $specialBlocks = array('root','head');
+
+        if (in_array($theBlock,$specialBlocks) ||
+            ($theBlock->getParentBlock() == null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
         ) {
             $_wrapperTag = 'comment';
         }
@@ -125,7 +111,8 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer {
         $contentTypes = array(
             'section' => '<section' . $content . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</section>',
             'div' => '<div' . $blockDetails['blockHover'] . $content . '>' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '</div>',
-            'comment' => '<!--  Begin' . $content . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->'
+            'comment' => '<!--  Begin' . $content . ' -->' . "\n" . $blockDetails['blockInitialContent'] . "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->',
+            'empty' => ''
         );
 
         return $contentTypes[$contentType];
