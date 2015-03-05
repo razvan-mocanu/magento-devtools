@@ -82,6 +82,17 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_block_data>
+                        <show_cms_data>
+                            <label>Show CMS Data</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>If enabled and the block is of CMS type, the ID will be included as attribute in the encapsulating tag.
+                            </comment>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_cms_data>
                         <show_on_hover>
                             <label>Use title</label>
                             <frontend_type>select</frontend_type>
@@ -89,7 +100,7 @@
                             <comment>If enabled and div used as encapsulating tag, this will ad the title attribute to
                                 the encapsulating div so it will display the template file on hover.
                             </comment>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -99,11 +110,21 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled the block will be encapsulated even if it is empty.</comment>
-                            <sort_order>7</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_empty_blocks>
+                        <show_layout_handles>
+                            <label>Layout Update Handles List</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>If enabled, a comment with the list of handles will be added at the beginning of the page.</comment>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_layout_handles>
                     </fields>
                 </block_info_settings>
             </groups>

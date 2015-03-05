@@ -15,3 +15,10 @@ Developed on EE 1.14, used and tested also on CE 1.9
 V.0.5
 
 Code reorganisation.
+
+V.0.6
+
+- CMS block/page info
+- repositioning root block info after the <!DOCTYPE HTML>
+- layout update handles list
+- some php doc added
