@@ -1,4 +1,6 @@
 <?php
+namespace RazvanMocanu;
+
 /**
  * Development Tools
  *
