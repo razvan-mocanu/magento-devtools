@@ -82,7 +82,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
         $_currentBlock = $observer->getBlock();
 
         $_blockDetails = array();
-        $_blockDetails['wrapperTag'] = $this->getWrapperTag($_currentBlock)? $this->getWrapperTag($_currentBlock) : 'empty';
+        $_blockDetails['wrapperTag'] = $this->_getWrapperTag($_currentBlock)? $this->_getWrapperTag($_currentBlock) : 'empty';
         $_blockDetails['isRoot'] = $this->_getBlockIsRoot($_currentBlock);
         $_blockDetails['blockName'] = $this->_getBlockNameContent($_currentBlock);
         $_blockDetails['blockTemplate'] = $this->_getBlockTemplateContent($_currentBlock);
@@ -101,7 +101,8 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      *
      * @return string
      */
-    private function getWrapperTag($theBlock) {
+    private function _getWrapperTag($theBlock)
+    {
         $_wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
         // Set wrapper tag to comment if the block is root, head or contained in head.
         // In this cases no other tag can be used.
@@ -109,7 +110,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
         $specialBlocks = array('root','head');
 
         if (in_array($theBlock,$specialBlocks) ||
-            ($theBlock->getParentBlock() == null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
+            ($theBlock->getParentBlock() === null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
         ) {
             $_wrapperTag = 'comment';
         }
