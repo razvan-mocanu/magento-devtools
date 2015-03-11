@@ -1,6 +1,4 @@
 <?php
-namespace RazvanMocanu;
-
 /**
  * Development Tools
  *
@@ -13,6 +11,8 @@ namespace RazvanMocanu;
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link      http://mocanu.biz
  */
+
+namespace RazvanMocanu;
 
 /**
  * Devtools tag selector model
@@ -35,9 +35,17 @@ class RazvanMocanu_Devtools_Model_Tagselect
     public function toOptionArray()
     {
         return array(
-            array('value' => 'comment', 'label' => Mage::helper('devtools')->__('Comment block')),
-            array('value' => 'section', 'label' => Mage::helper('devtools')->__('Section')),
-            array('value' => 'div', 'label' => Mage::helper('devtools')->__('Div')),
+            array('value' => 'comment',
+                'label' => Mage::helper('devtools')->__('Comment block')
+            ),
+
+            array('value' => 'section',
+                'label' => Mage::helper('devtools')->__('Section')
+            ),
+
+            array('value' => 'div',
+                'label' => Mage::helper('devtools')->__('Div')
+            ),
         );
     }
 }

@@ -1,6 +1,4 @@
 <?php
-namespace RazvanMocanu;
-
 /**
  * Development Tools
  *
@@ -13,6 +11,8 @@ namespace RazvanMocanu;
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link      http://mocanu.biz
  */
+
+namespace RazvanMocanu;
 
 /**
  * Devtools helper class
