@@ -12,8 +12,6 @@
  * @link      http://mocanu.biz
  */
 
-namespace RazvanMocanu;
-
 /**
  * Devtools tag selector model
  *

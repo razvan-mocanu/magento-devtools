@@ -12,8 +12,6 @@
  * @link      http://mocanu.biz
  */
 
-namespace RazvanMocanu;
-
 /**
  * Class RazvanMocanu_Devtools_Model_Observer
  *
@@ -25,12 +23,15 @@ namespace RazvanMocanu;
  */
 class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
 {
+
+    private $_helper;
+
     /**
      * Constructor
      */
     public function __construct()
     {
-
+        $this->_helper = Mage::helper('devtools');
     }
 
     /**
@@ -109,7 +110,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
 
         $specialBlocks = array('root','head');
 
-        if (in_array($theBlock,$specialBlocks) ||
+        if (in_array($theBlock, $specialBlocks) ||
             ($theBlock->getParentBlock() === null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
         ) {
             $_wrapperTag = 'comment';
@@ -155,11 +156,11 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function _getBlockNameContent($theBlock)
     {
-        if (Mage::getStoreConfig('devtools_options/block_info_settings/show_block_name')) {
-            return "\n" . ' BlockName="' . $theBlock->getNameInLayout() . '"';
-        } else {
-            return "";
-        }
+        return $this->_helper->makeAttribute(
+            Mage::getStoreConfig('devtools_options/block_info_settings/show_block_name'),
+            'BlockName',
+            $theBlock->getNameInLayout()
+        );
     }
 
     /**
@@ -171,11 +172,11 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function _getBlockTemplateContent($theBlock)
     {
-        if (Mage::getStoreConfig('devtools_options/block_info_settings/show_block_template')) {
-            return "\n" . ' BlockTemplate="' . $theBlock->getTemplateFile() . '"';
-        } else {
-            return "";
-        }
+        return $this->_helper->makeAttribute(
+            Mage::getStoreConfig('devtools_options/block_info_settings/show_block_template'),
+            'BlockTemplate',
+            $theBlock->getTemplateFile()
+        );
     }
 
     /**
@@ -187,12 +188,11 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function _getBlockDataContent($theBlock)
     {
-
-        if (Mage::getStoreConfig('devtools_options/block_info_settings/show_block_data')) {
-            return $this->_prepareDataContent($theBlock);
-        } else {
-            return "";
-        }
+        return $this->_helper->makeAttribute(
+            Mage::getStoreConfig('devtools_options/block_info_settings/show_block_data'),
+            'Data',
+            $this->_prepareDataContent($theBlock)
+        );
     }
 
     /**
@@ -219,7 +219,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
             }
         }
 
-        return "\n" . ' Data="' . $_currentData . '"';
+        return $_currentData;
     }
 
     /**

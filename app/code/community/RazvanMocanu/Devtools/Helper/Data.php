@@ -12,8 +12,6 @@
  * @link      http://mocanu.biz
  */
 
-namespace RazvanMocanu;
-
 /**
  * Devtools helper class
  *
@@ -29,4 +27,13 @@ namespace RazvanMocanu;
 class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
+    public function makeAttribute($isUsed, $attributeName, $attributeValue, $onNewLine = true)
+    {
+        if ($isUsed) {
+            return ($onNewLine? "\n" : "")
+                . ' ' . $attributeName . '="' . $attributeValue . '"';
+        } else {
+            return "";
+        }
+    }
 }
