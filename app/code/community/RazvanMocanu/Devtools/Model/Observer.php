@@ -330,7 +330,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
         );
 
 
-        $begin = "\n" . '<!--  Begin' . $content . ' -->' . '<html';
+        $begin = "\n" . '<!--  Begin' . $content . ' -->';
         $end = "\n" . '<!-- End' . $blockDetails['blockName'] . ' -->';
 
         if ($blockDetails['isRoot']) {
@@ -338,7 +338,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
             if ($pos !== false) {
                 return substr_replace(
                     $blockDetails['blockInitialContent'],
-                    $this->_getLayoutHandles() . $begin,
+                    $this->_getLayoutHandles() . $begin . "\n" . '<html',
                     $pos,
                     5
                 ) . $end;
