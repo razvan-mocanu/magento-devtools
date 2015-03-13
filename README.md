@@ -22,3 +22,7 @@ V.0.6
 - repositioning root block info after the <!DOCTYPE HTML>
 - layout update handles list
 - some php doc added
+
+V.1.0.1
+
+Refactored.
