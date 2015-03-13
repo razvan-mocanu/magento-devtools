@@ -27,6 +27,16 @@
 class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
+    /**
+     * Makes the string representation of the tag attribute
+     *
+     * @param boolean $isUsed         (If false returns empty string)
+     * @param string  $attributeName  (The attribute name)
+     * @param string  $attributeValue (The attribute value)
+     * @param bool    $onNewLine      (If true, a new line char is added before)
+     *
+     * @return string
+     */
     public function makeAttribute($isUsed, $attributeName, $attributeValue, $onNewLine = true)
     {
         if ($isUsed) {

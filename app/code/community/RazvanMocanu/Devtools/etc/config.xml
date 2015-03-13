@@ -2,7 +2,7 @@
 <config>
     <modules>
         <RazvanMocanu_Devtools>
-            <version>0.0.6</version>
+            <version>1.0.1</version>
         </RazvanMocanu_Devtools>
     </modules>
     <global>
