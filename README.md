@@ -3,6 +3,8 @@ magento-devtools
 
 RazvanMocanu DevTools
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/razvan-mocanu/magento-devtools/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/razvan-mocanu/magento-devtools/?branch=master)
+
 1. What is it
 
 This module wraps each block in comment tags and ads information about the block. The available information is: name, template and data. This allows the developer to quickly identify blocks and find the associated templates and data. It doesn't work as the template hints. All the information is contained inside the HTLM which you can inspect with the browser. If you are using Firebug, don't forget to set it to show comments. See screenshots. It works with C.E. and E.E.
