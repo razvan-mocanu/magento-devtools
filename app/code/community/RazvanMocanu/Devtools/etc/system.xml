@@ -2,13 +2,13 @@
 <config>
     <tabs>
         <razvanmocanu translate="label" module="devtools">
-            <label>Razvan Mocanu Devtools</label>
+            <label>Razvan Mocanu</label>
             <sort_order>150</sort_order>
         </razvanmocanu>
     </tabs>
     <sections>
         <devtools_options translate="label" module="devtools">
-            <label>Devtools Config Options</label>
+            <label>Devtools</label>
             <tab>razvanmocanu</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
@@ -25,7 +25,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <block_info_enabled>
-                            <label>Enable Block Info</label>
+                            <label>Enable Block Info For Frontend</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled this will add information about each block in the HTML source. Below you
@@ -36,6 +36,17 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </block_info_enabled>
+                        <block_info_enabled_admin>
+                            <label>Enable Block Info For Admin</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Same as above but for admin.
+                            </comment>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_info_enabled_admin>
                         <tag_select>
                             <label>Tag to use</label>
                             <frontend_type>select</frontend_type>
@@ -43,7 +54,7 @@
                             <comment>This tag will encapsulate the block. The root block, head block and children of
                                 head block will be encapsulated in comments regardless of this selection.
                             </comment>
-                            <sort_order>2</sort_order>
+                            <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -54,7 +65,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled the block name will be included as attribute in the encapsulating tag.
                             </comment>
-                            <sort_order>3</sort_order>
+                            <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -66,7 +77,7 @@
                             <comment>If enabled the block template will be included as attribute in the encapsulating
                                 tag.
                             </comment>
-                            <sort_order>4</sort_order>
+                            <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -77,7 +88,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled the block data will be included as attribute in the encapsulating tag.
                             </comment>
-                            <sort_order>5</sort_order>
+                            <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -88,7 +99,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled and the block is of CMS type, the ID will be included as attribute in the encapsulating tag.
                             </comment>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -100,7 +111,7 @@
                             <comment>If enabled and div used as encapsulating tag, this will ad the title attribute to
                                 the encapsulating div so it will display the template file on hover.
                             </comment>
-                            <sort_order>7</sort_order>
+                            <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -110,7 +121,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled the block will be encapsulated even if it is empty.</comment>
-                            <sort_order>8</sort_order>
+                            <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -120,7 +131,7 @@
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>If enabled, a comment with the list of handles will be added at the beginning of the page.</comment>
-                            <sort_order>9</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

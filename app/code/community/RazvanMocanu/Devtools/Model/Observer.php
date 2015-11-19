@@ -43,8 +43,11 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     public function highlightBlocks($observer)
     {
-        if ((Mage::getDesign()->getArea() == 'frontend')
-            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled'))) {
+        if (((Mage::getDesign()->getArea() == 'frontend')
+            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled'))) ||
+            ((Mage::getDesign()->getArea() == 'adminhtml')
+                && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled_admin'))))
+        {
             $observer->getTransport()->setHtml($this->_updateContent($observer));
         }
     }
