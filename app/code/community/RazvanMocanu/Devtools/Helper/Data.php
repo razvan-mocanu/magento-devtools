@@ -107,4 +107,17 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
             ($theBlock->getParentBlock() === null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
         );
     }
+
+    /**
+     * Check if CMS data is to be displayed.
+     *
+     * @param Mage_Core_Block_Abstract $theBlock (The actual block extends the core block)
+     *
+     * @return bool
+     */
+    public function getShowCMSInfo($theBlock)
+    {
+        return (Mage::getStoreConfig('devtools_options/block_info_settings/show_cms_data')
+        && in_array($theBlock->getType(), ["cms/block","cms/page"]));
+    }
 }

@@ -226,9 +226,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
     private function _getBlockCMSInfoContent($theBlock)
     {
 
-        if (Mage::getStoreConfig('devtools_options/block_info_settings/show_cms_data')
-            && in_array($theBlock->getType(), ["cms/block","cms/page"])
-        ) {
+        if ($this->_helper->getShowCMSInfo($theBlock)) {
 
             switch($theBlock->getType()){
                 case 'cms/block':
