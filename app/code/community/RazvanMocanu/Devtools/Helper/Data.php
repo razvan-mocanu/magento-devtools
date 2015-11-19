@@ -46,4 +46,53 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
             return "";
         }
     }
+
+    /**
+     * Checks if highlighting is applied in Frontend.
+     *
+     * @return boolean
+     */
+    public function highlightFrontend()
+    {
+        return (
+            (Mage::getDesign()->getArea() == 'frontend')
+            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled'))
+        );
+    }
+
+    /**
+     * Checks if highlighting is applied in Admin.
+     *
+     * @return boolean
+     */
+    public function highlightAdmin()
+    {
+        return (
+            (Mage::getDesign()->getArea() == 'adminhtml')
+            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled_admin'))
+        );
+    }
+
+    /**
+     * Get the wrapper tag from config
+     *
+     * @param Mage_Core_Block_Abstract $theBlock (The actual block extends the core block)
+     *
+     * @return string
+     */
+    public function getWrapperTag($theBlock)
+    {
+        $_wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
+        // Set wrapper tag to comment if the block is root, head or contained in head.
+        // In this cases no other tag can be used.
+
+        $specialBlocks = array('root','head');
+
+        if (in_array($theBlock, $specialBlocks) ||
+            ($theBlock->getParentBlock() === null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
+        ) {
+            $_wrapperTag = 'comment';
+        }
+        return $_wrapperTag ? $_wrapperTag : 'empty';
+    }
 }

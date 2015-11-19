@@ -43,36 +43,10 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     public function highlightBlocks($observer)
     {
-        if ($this->_highlightFrontend() || $this->_highlightAdmin())
+        if ($this->_helper->highlightFrontend() || $this->_helper->highlightAdmin())
         {
             $observer->getTransport()->setHtml($this->_updateContent($observer));
         }
-    }
-
-    /**
-     * Checks if highlighting is applied in Frontend.
-     *
-     * @return boolean
-     */
-    private function _highlightFrontend()
-    {
-        return (
-            (Mage::getDesign()->getArea() == 'frontend')
-            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled'))
-        );
-    }
-
-    /**
-     * Checks if highlighting is applied in Admin.
-     *
-     * @return boolean
-     */
-    private function _highlightAdmin()
-    {
-        return (
-            (Mage::getDesign()->getArea() == 'adminhtml')
-            && (Mage::getStoreConfig('devtools_options/block_info_settings/block_info_enabled_admin'))
-        );
     }
 
     /**
@@ -109,7 +83,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
         $_currentBlock = $observer->getBlock();
 
         $_blockDetails = array();
-        $_blockDetails['wrapperTag'] = $this->_getWrapperTag($_currentBlock)? $this->_getWrapperTag($_currentBlock) : 'empty';
+        $_blockDetails['wrapperTag'] = $this->_helper->getWrapperTag($_currentBlock);
         $_blockDetails['isRoot'] = $this->_getBlockIsRoot($_currentBlock);
         $_blockDetails['blockName'] = $this->_getBlockNameContent($_currentBlock);
         $_blockDetails['blockTemplate'] = $this->_getBlockTemplateContent($_currentBlock);
@@ -119,29 +93,6 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
         $_blockDetails['blockInitialContent'] = $observer->getTransport()->getHtml();
 
         return $_blockDetails;
-    }
-
-    /**
-     * Get the wrapper tag from config
-     *
-     * @param Mage_Core_Block_Abstract $theBlock (The actual block extends the core block)
-     *
-     * @return string
-     */
-    private function _getWrapperTag($theBlock)
-    {
-        $_wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
-        // Set wrapper tag to comment if the block is root, head or contained in head.
-        // In this cases no other tag can be used.
-
-        $specialBlocks = array('root','head');
-
-        if (in_array($theBlock, $specialBlocks) ||
-            ($theBlock->getParentBlock() === null ? false : ($theBlock->getParentBlock()->getNameInLayout() == 'head'))
-        ) {
-            $_wrapperTag = 'comment';
-        }
-        return $_wrapperTag;
     }
 
     /**
