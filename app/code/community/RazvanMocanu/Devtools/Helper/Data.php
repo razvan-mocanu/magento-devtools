@@ -86,7 +86,7 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
 
         // Set wrapper tag to comment if the block is root, head or contained in head.
         // In this cases no other tag can be used.
-        if ($this->_isSpecialBlock($theBlock)) {
+        if ($this->isSpecialBlock($theBlock)) {
             $_wrapperTag = 'comment';
         }
         return $_wrapperTag ? $_wrapperTag : 'empty';
@@ -99,7 +99,7 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    private function _isSpecialBlock($theBlock)
+    private function isSpecialBlock($theBlock)
     {
         $specialBlocks = array('root','head');
 
