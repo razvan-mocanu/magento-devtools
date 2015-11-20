@@ -1,9 +1,10 @@
 magento-devtools
 ================
 
-RazvanMocanu DevTools
-
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/razvan-mocanu/magento-devtools/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/razvan-mocanu/magento-devtools/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5ce5a6ca-4c05-44b7-b188-ca3ef680b0de/big.png)](https://insight.sensiolabs.com/projects/5ce5a6ca-4c05-44b7-b188-ca3ef680b0de)
+
+RazvanMocanu DevTools
 
 1. What is it
 
