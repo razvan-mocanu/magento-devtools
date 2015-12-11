@@ -1,18 +1,5 @@
 <?php
 /**
- * Development Tools
- *
- * PHP version 5.5
- *
- * @category  RazvanMocanu
- * @package   RazvanMocanu_Devtools
- * @author    Razvan Mocanu <razvan@mocanu.biz>
- * @copyright 2015 Razvan Mocanu (http://mocanu.biz)
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link      http://mocanu.biz
- */
-
-/**
  * Devtools helper class
  *
  * PHP version 5.5
@@ -82,14 +69,14 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getWrapperTag($theBlock)
     {
-        $_wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
+        $wrapperTag = Mage::getStoreConfig('devtools_options/block_info_settings/tag_select');
 
         // Set wrapper tag to comment if the block is root, head or contained in head.
         // In this cases no other tag can be used.
         if ($this->isSpecialBlock($theBlock)) {
-            $_wrapperTag = 'comment';
+            $wrapperTag = 'comment';
         }
-        return $_wrapperTag ? $_wrapperTag : 'empty';
+        return $wrapperTag ? $wrapperTag : 'empty';
     }
 
     /**
@@ -115,7 +102,7 @@ class RazvanMocanu_Devtools_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function getShowCMSInfo($theBlock)
+    public function hasShowCMSInfo($theBlock)
     {
         return (Mage::getStoreConfig('devtools_options/block_info_settings/show_cms_data')
         && in_array($theBlock->getType(), ["cms/block","cms/page"]));

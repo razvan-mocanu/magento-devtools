@@ -24,14 +24,17 @@
 class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
 {
 
-    private $_helper;
+    /**
+     * @var RazvanMocanu_Devtools_Helper_Data $helper
+     */
+    private $helper;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->_helper = Mage::helper('devtools');
+        $this->helper = Mage::helper('devtools');
     }
 
     /**
@@ -43,7 +46,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     public function highlightBlocks($observer)
     {
-        if ($this->_helper->highlightFrontend() || $this->_helper->highlightAdmin())
+        if ($this->helper->highlightFrontend() || $this->helper->highlightAdmin())
         {
             $observer->getTransport()->setHtml($this->updateContent($observer));
         }
@@ -61,9 +64,9 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
 
         $blockDetails = $this->prepareContentData($observer);
 
-        $_showEmptyBlocks = Mage::getStoreConfig('devtools_options/block_info_settings/show_empty_blocks');
+        $showEmptyBlocks = Mage::getStoreConfig('devtools_options/block_info_settings/show_empty_blocks');
 
-        if ((!$_showEmptyBlocks && !$blockDetails['blockInitialContent'])) {
+        if ((!$showEmptyBlocks && !$blockDetails['blockInitialContent'])) {
             $blockDetails['wrapperTag'] = "empty";
         }
 
@@ -80,19 +83,19 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
     private function prepareContentData($observer)
     {
 
-        $_currentBlock = $observer->getBlock();
+        $currentBlock = $observer->getBlock();
 
-        $_blockDetails = array();
-        $_blockDetails['wrapperTag'] = $this->_helper->getWrapperTag($_currentBlock);
-        $_blockDetails['isRoot'] = $this->getBlockIsRoot($_currentBlock);
-        $_blockDetails['blockName'] = $this->getBlockNameContent($_currentBlock);
-        $_blockDetails['blockTemplate'] = $this->getBlockTemplateContent($_currentBlock);
-        $_blockDetails['CMSData'] = $this->getBlockCMSInfoContent($_currentBlock);
-        $_blockDetails['blockData'] = $this->getBlockDataContent($_currentBlock);
-        $_blockDetails['blockHover'] = $this->getBlockHoverContent($_currentBlock);
-        $_blockDetails['blockInitialContent'] = $observer->getTransport()->getHtml();
+        $blockDetails = array();
+        $blockDetails['wrapperTag'] = $this->helper->getWrapperTag($currentBlock);
+        $blockDetails['isRoot'] = $this->isBlockRoot($currentBlock);
+        $blockDetails['blockName'] = $this->getBlockNameContent($currentBlock);
+        $blockDetails['blockTemplate'] = $this->getBlockTemplateContent($currentBlock);
+        $blockDetails['CMSData'] = $this->getBlockCMSInfoContent($currentBlock);
+        $blockDetails['blockData'] = $this->getBlockDataContent($currentBlock);
+        $blockDetails['blockHover'] = $this->getBlockHoverContent($currentBlock);
+        $blockDetails['blockInitialContent'] = $observer->getTransport()->getHtml();
 
-        return $_blockDetails;
+        return $blockDetails;
     }
 
     /**
@@ -102,7 +105,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      *
      * @return bool
      */
-    private function getBlockIsRoot($theBlock)
+    private function isBlockRoot($theBlock)
     {
         return ($theBlock->getNameInLayout() == 'root');
     }
@@ -133,7 +136,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function getBlockNameContent($theBlock)
     {
-        return $this->_helper->makeAttribute(
+        return $this->helper->makeAttribute(
             Mage::getStoreConfig('devtools_options/block_info_settings/show_block_name'),
             'BlockName',
             $theBlock->getNameInLayout()
@@ -149,7 +152,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function getBlockTemplateContent($theBlock)
     {
-        return $this->_helper->makeAttribute(
+        return $this->helper->makeAttribute(
             Mage::getStoreConfig('devtools_options/block_info_settings/show_block_template'),
             'BlockTemplate',
             $theBlock->getTemplateFile()
@@ -165,7 +168,7 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
      */
     private function getBlockDataContent($theBlock)
     {
-        return $this->_helper->makeAttribute(
+        return $this->helper->makeAttribute(
             Mage::getStoreConfig('devtools_options/block_info_settings/show_block_data'),
             'Data',
             $this->prepareDataContent($theBlock)
@@ -182,21 +185,21 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
     private function prepareDataContent($theBlock)
     {
 
-        $_currentData = '';
+        $currentData = '';
 
         //get first level of data in array
         //if the value is array it will not be parsed
         foreach ($theBlock->debug() as $key => $value) {
             if ($key != "text") {
                 if (!is_array($value)) {
-                    $_currentData .= $key . ':' . $value . '; ';
+                    $currentData .= $key . ':' . $value . '; ';
                 } else {
-                    $_currentData .= $key . ':' . 'ARRAY' . '; ';
+                    $currentData .= $key . ':' . 'ARRAY' . '; ';
                 }
             }
         }
 
-        return $_currentData;
+        return $currentData;
     }
 
     /**
@@ -226,20 +229,20 @@ class RazvanMocanu_Devtools_Model_Observer extends Varien_Event_Observer
     private function getBlockCMSInfoContent($theBlock)
     {
 
-        if ($this->_helper->getShowCMSInfo($theBlock)) {
+        if ($this->helper->hasShowCMSInfo($theBlock)) {
 
             switch($theBlock->getType()){
                 case 'cms/block':
-                    $CMSInfo = $this->getBlockCMSBlockInfo($theBlock);
+                    $cmsInfo = $this->getBlockCMSBlockInfo($theBlock);
                     break;
                 case 'cms/page':
-                    $CMSInfo = $this->getBlockCMSPageInfo($theBlock);
+                    $cmsInfo = $this->getBlockCMSPageInfo($theBlock);
                     break;
                 default:
-                    $CMSInfo = '';
+                    $cmsInfo = '';
             }
 
-            return "\n" . 'CMSData="' . $CMSInfo . '"';
+            return "\n" . 'CMSData="' . $cmsInfo . '"';
         } else {
             return "";
         }
